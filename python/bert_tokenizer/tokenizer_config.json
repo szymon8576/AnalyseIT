@@ -1,0 +1,15 @@
+{
+  "clean_up_tokenization_spaces": true,
+  "cls_token": "[CLS]",
+  "do_lower_case": true,
+  "mask_token": "[MASK]",
+  "model_max_length": 512,
+  "num_labels": 28,
+  "pad_token": "[PAD]",
+  "problem_type": "multi_label_classification",
+  "sep_token": "[SEP]",
+  "strip_accents": null,
+  "tokenize_chinese_chars": true,
+  "tokenizer_class": "DistilBertTokenizer",
+  "unk_token": "[UNK]"
+}

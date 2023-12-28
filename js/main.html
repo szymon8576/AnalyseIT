@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentiment Analysis</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="movingbubbles.css">
+    <link href='https://fonts.googleapis.com/css?family=Jost' rel='stylesheet'>
+</head>
+<body>
+    
+    <div id="mainContainer" >
+        <div id="mainButtonsContainer">
+            <button id="BertButton" class="topButton">BERT 🤗</button>
+            <button id="LSTMButton" class="topButton" >LSTM 🦾</button>
+        </div>
+       
+        <div id="explanation"><p>This tool is designed to analyze sentiment in text input. You can choose between two models:</p>
+
+            <ul>
+              <li><strong>BERT:</strong> capable of recognizig 28 different emotions,</li>
+              <li><strong>LSTM:</strong> predicting whether a sentence has a positive, neutral, or negative sentiment.</li>
+            </ul>
+        
+            <p>You can analyze short sentences in the first window or process an entire file in the second window to obtain its general characteristics.</p>
+          </div>
+        <div class="wrapper">
+            <button id="info-button">i</button>
+            <div class="text-box-container">
+                <input type="text" id="text-box" placeholder="Type something..." onkeyup="typedText(this.value)">
+                <button id="random-button" onclick="insertRandomText()">Surprise me!</button>
+                <div id="stacked-buttons-wrapper" style="display:none">
+                    <button id="plus-button" class="stacked-button up" onclick="emotionsShown(1)">more</button>
+                    <button id="plus-button" class="stacked-button down" onclick="emotionsShown(-1)">less</button>
+                </div>
+            </div>
+            <div class = "emotion-container"  id="main-emotion-container"></div>
+        </div>
+        <div class="wrapper" id="fileInputWrapper">
+            <div class="text-box-container lower-container">
+                <p>You can also &nbsp;</p>
+                <div class="upload-container">
+                    <label for="fileInput" class="upload-button">
+                        <span class="upload-icon">&#x1F4C2;</span> SELECT A FILE
+                    </label>
+                    <input type="file" id="fileInput" onchange="handleFileChange(event)" name="fileInput" accept=".txt">
+                </div> &nbsp;<p> for analysis, or <a href="#" onclick="exemplaryBatchPrediction()">process</a> an exemplary file  <a class="no-underline" href="#" onclick="showExemplaryFile()">🔎</a>&nbsp; </p>
+            </div>
+            <div id="batchAnalysisResult" style="display:none">
+                <div class="separator"></div>
+                    <p>Sentence with most positive 🤗 sentiment:</p>
+                    <h3 id="batchResultPositiveSentence"></h3>
+                <div class="separator"></div>
+                    <p>Sentence with most negative 😥 sentiment:</p>
+                    <h3 id="batchResultNegativeSentence"></h3>
+                <div class="separator"></div>
+                    <p>Dominant emotions:</p>
+                    <div class = "emotion-container" id="emotion-container-batch-emotions"></div>
+                <div class="separator"></div>
+                    <p>Overall sentiment:</p>
+                    <div class = "emotion-container" id="emotion-container-batch-sentiment"></div>
+                <div class="separator"></div>
+                    <p> For full report in JSON format, click <a href="#" id="downloadLink">here</a>.</p>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="movingbubbles.js"></script>
+
+</body>
+</html>
