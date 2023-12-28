@@ -68,16 +68,10 @@ def process_texts(texts, used_model):
 
     elif used_model == "LSTM":
         tf_serving_url = app.config['TFS_API_URL'] + "/v1/models/LSTMSentiment:predict"
-        print(tf_serving_url)
         tokenized_texts = [lstm_tokenizer.tokenize(text)[:32] for text in texts]
-        print(tokenized_texts)
         padded_tokens = [np.pad(tokens, (0, 32 - len(tokens))).astype(np.int64).tolist() for tokens in tokenized_texts]
-        print(padded_tokens)
         response = fetch_tf_serve(tf_serving_url, padded_tokens, data_format="instances")
-        print(response)
-        return response
         probabilities = softmax(response["predictions"])
-        print(probabilities)
 
         result = []
         for text_probabilities in probabilities:
