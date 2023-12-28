@@ -1,3 +1,5 @@
+ 
+
 const emotionsData = {
     admiration: {
         emoji: '🌟',
@@ -121,7 +123,20 @@ const emotionsData = {
     },
 };
 
-    
+let backendURL
+async function loadConfig() {
+    try {
+      const response = await fetch('config.json');
+      const config = await response.json();
+      backendURL = config.backendURL;
+    } catch (error) {
+      console.error('Error loading configuration:', error);
+    }
+  }
+  
+loadConfig();
+
+
 function updateEmotionBars(emotions, emotionContainerID = 'main-emotion-container') {
     
     const emotionContainer = document.getElementById(emotionContainerID);
@@ -221,7 +236,7 @@ async function sendTexts(texts, command="analyse"){
 
     try {
 
-        const response = await fetch(`http://192.168.0.101:5000/${command}`, {
+        const response = await fetch(`${backendURL}/${command}`, {
             method: "POST",
             mode: "cors",
             headers: {

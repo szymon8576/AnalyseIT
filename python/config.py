@@ -1,0 +1,1 @@
+TFS_API_URL = "https://tfserving-ocr-voice-lstm.onrender.com"  # 'http://localhost:8501'

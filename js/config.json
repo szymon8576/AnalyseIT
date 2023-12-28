@@ -1,0 +1,4 @@
+{
+    "backendURL": "https://tfserving-ocr-voice-lstm.onrender.com" // "http://192.168.0.101:5000"
+}
+  
