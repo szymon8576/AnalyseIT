@@ -75,6 +75,7 @@ def process_texts(texts, used_model):
         print(padded_tokens)
         response = fetch_tf_serve(tf_serving_url, padded_tokens, data_format="instances")
         print(response)
+        return response
         probabilities = softmax(response["predictions"])
         print(probabilities)
 
