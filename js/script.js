@@ -1,29 +1,4 @@
-let typingTimer;
-const doneTypingInterval = 1000; 
-
-function typedText(text, dont_wait=false) {
-
-    if (text.length == 0)
-    {
-        return;
-    }
-
-    if(dont_wait){
-        sendTexts([text]);
-    }
-
-    else{
-        clearTimeout(typingTimer); 
-
-        typingTimer = setTimeout(() => {
-            sendTexts([text]);
-        }, doneTypingInterval);
-    }
-    
-}
-
-
-const emotionsWithEmojisAndColors = {
+const emotionsData = {
     admiration: {
         emoji: '🌟',
         color: ['rgba(255, 102, 51, 1)'],
@@ -160,7 +135,7 @@ function updateEmotionBars(emotions, emotionContainerID = 'main-emotion-containe
 
         const emotionName = document.createElement('p');
         emotionName.className = 'emotion-name';
-        emotionName.innerText = `${emotion[0]} ${emotionsWithEmojisAndColors[emotion[0]].emoji}`;
+        emotionName.innerText = `${emotion[0]} ${emotionsData[emotion[0]].emoji}`;
 
 
         const barContainer = document.createElement('div');
@@ -171,7 +146,7 @@ function updateEmotionBars(emotions, emotionContainerID = 'main-emotion-containe
         
         const widthPercentage = emotion[1] * 100;
         barFill.style.width = `${widthPercentage}%`;
-        barFill.style.backgroundColor = emotionsWithEmojisAndColors[emotion[0]].color;
+        barFill.style.backgroundColor = emotionsData[emotion[0]].color;
 
         
         const barLabel = document.createElement('div');
@@ -263,7 +238,6 @@ async function sendTexts(texts, command="analyse"){
         data = await response.json();
 
         data = Object.entries(data[0]);
-        console.log(data);
         data.sort(function(a, b) { return b[1] - a[1] });
 
         updateEmotionBars(data);
@@ -271,9 +245,6 @@ async function sendTexts(texts, command="analyse"){
 
         else{
             
-            
-            console.log(document.body.scrollHeight);
-
             data = await response.json();
 
             document.getElementById("batchResultPositiveSentence").textContent = data.most_positive;
@@ -287,13 +258,11 @@ async function sendTexts(texts, command="analyse"){
 
 
             sentiment = Object.entries(data.sentiment);
-            console.log(sentiment);
             sentiment.sort(function(a, b) { return b[1] - a[1] });
 
             updateEmotionBars(sentiment, emotionContainerID = "emotion-container-batch-sentiment");
 
             jsonString = data.full_report;
-            console.log(jsonString);
 
             document.getElementById("batchAnalysisResult").style.display = "flex";
 
@@ -351,6 +320,31 @@ const randomTexts = [
 function hideBatchAnalysisResult(){
     document.getElementById("batchAnalysisResult").style.display = "none";
 }
+
+let typingTimer;
+const doneTypingInterval = 1000; 
+
+function typedText(text, dont_wait=false) {
+
+    if (text.length == 0)
+    {
+        return;
+    }
+
+    if(dont_wait){
+        sendTexts([text]);
+    }
+
+    else{
+        clearTimeout(typingTimer); 
+
+        typingTimer = setTimeout(() => {
+            sendTexts([text]);
+        }, doneTypingInterval);
+    }
+    
+}
+
 
 // Function to insert random text into the text box
 function insertRandomText() {

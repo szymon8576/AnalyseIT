@@ -4,7 +4,7 @@ import requests
 import random
 from helpers import *
 import pandas as pd
-from customtokenizer import CustomTokenizer
+from lstm_tokenizer.customtokenizer import CustomTokenizer
 
 import dill
 import numpy as np
@@ -22,7 +22,7 @@ id2label = {i: label for i, label in enumerate(labels)}
 
 
 # load tokenizer used with LSTM model
-with open('tokenizer.pkl', 'rb') as file:
+with open('lstm_tokenizer/tokenizer.pkl', 'rb') as file:
     lstm_tokenizer = dill.load(file)
 
 
