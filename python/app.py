@@ -71,7 +71,9 @@ def process_texts(texts, used_model):
         tokenized_texts = [lstm_tokenizer.tokenize(text)[:32] for text in texts]
         padded_tokens = [np.pad(tokens, (0, 32 - len(tokens))).astype(np.int64).tolist() for tokens in tokenized_texts]
         response = fetch_tf_serve(tf_serving_url, padded_tokens, data_format="instances")
+        print(response)
         probabilities = softmax(response["predictions"])
+        print(probabilities)
 
         result = []
         for text_probabilities in probabilities:
