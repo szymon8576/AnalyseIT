@@ -5,6 +5,5 @@ requests
 gunicorn
 flask
 flask-cors
-random
 pandas
 numpy
