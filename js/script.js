@@ -361,14 +361,20 @@ function typedText(text, dont_wait=false) {
 }
 
 
-// Function to insert random text into the text box
+
 function insertRandomText() {
     
     hideBatchAnalysisResult();
 
     const textBox = document.getElementById("text-box");
-    const randomIndex = Math.floor(Math.random() * randomTexts.length);
-    const randomText = randomTexts[randomIndex];
+
+    let randomText;
+    do 
+    {
+        randomText = randomTexts[Math.floor(Math.random() * randomTexts.length)];
+    } 
+    while (randomText == textBox.value)
+
     textBox.value = randomText;
     typedText(randomText, dont_wait=true); // Call your typedText function
 }
