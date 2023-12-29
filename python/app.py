@@ -23,8 +23,8 @@ id2label = {i: label for i, label in enumerate(labels)}
 
 
 # load tokenizer used with LSTM model
-with open('lstm_tokenizer/tokenizer.pkl', 'rb') as file:
-    lstm_tokenizer = dill.load(file)
+lstm_tokenizer = CustomTokenizer()
+lstm_tokenizer.load(dictionary_path="./lstm_tokenizer/dictionary.json", stopwords_path="./lstm_tokenizer/stopwords.json")
 
 
 def fetch_tf_serve(url, data, data_format="instances"):
