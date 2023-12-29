@@ -5,8 +5,6 @@ import random
 from helpers import *
 import pandas as pd
 from lstm_tokenizer.customtokenizer import CustomTokenizer
-
-import dill
 import numpy as np
 
 app = Flask(__name__)

@@ -1,6 +1,5 @@
 import re
 from collections import defaultdict
-import string
 from nltk.stem.snowball import SnowballStemmer
 import json
 
@@ -9,32 +8,28 @@ class CustomTokenizer:
     def __init__(self):
 
         self.stemmer = SnowballStemmer(language='english')
-        self.dictionary, self.stopwords = None, None
+        self.dictionary, self.excluded_tokens = None, None
 
-    def load(self, dictionary_path="dictionary.txt", stopwords_path='stopwords.txt'):
-
-        if self.dictionary is not None:
-            raise AssertionError("Tokenizer was already trained!")
+    def load(self, dictionary_path="dictionary.txt", excluded_tokens_path='excluded_tokens.txt'):
 
         with open(dictionary_path) as f:
             self.dictionary = json.load(f)
 
-        with open(stopwords_path) as f:
-            self.stopwords = json.load(f)
+        with open(excluded_tokens_path) as f:
+            self.excluded_tokens = json.load(f)
 
-    def save(self, dictionary_path="dictionary.txt", stopwords_path='stopwords.txt'):
+    def save(self, dictionary_path="dictionary.json", excluded_tokens_path='excluded_tokens.json'):
 
         if self.dictionary is None:
-            raise AssertionError("Tokenizer has not been trained or loaded yet!")
+            raise AssertionError("Tokenizer has not been trained yet!")
 
         with open(dictionary_path) as f:
             json.dump(self.dictionary, f)
 
-        with open(stopwords_path) as f:
-            json.dump(self.stopwords, f)
+        with open(excluded_tokens_path) as f:
+            json.dump(self.excluded_tokens, f)
 
-
-    def train(self, sentences, stopwords_path='stopwords.txt', min_occurences=70):
+    def train(self, sentences, excluded_tokens_path='excluded_tokens.json', min_occurences=70):
 
         if self.dictionary is not None:
             raise AssertionError("Tokenizer was already trained!")
@@ -43,9 +38,8 @@ class CustomTokenizer:
         self.dictionary["<UNK>"] = 1
 
         # prepare list of words that should be omited
-
-        self.stopwords = list(string.punctuation.replace("!", "").replace("?", ""))
-        self.stopwords += [word.strip() for word in open(stopwords_path, 'r')]
+        with open(excluded_tokens_path) as f:
+            self.excluded_tokens = json.load(f)
 
         counter = defaultdict(int)
 
@@ -60,7 +54,7 @@ class CustomTokenizer:
 
     def prepare(self, text):
         words = re.findall(r"[A-Za-z]+|[^\w\s]", text.lower())
-        words = [w for w in words if w not in self.stopwords]
+        words = [w for w in words if w not in self.excluded_tokens]
         words = [self.stemmer.stem(word) for word in words]
         return words
 
