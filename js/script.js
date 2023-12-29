@@ -328,7 +328,10 @@ const randomTexts = [
     "I adore you, baby.",
     "Product did not live up to the online description. Not worth it.", 
     "I was disappointed with the service.",
-    "There are 50 states in the USA."
+    "There are 50 states in the USA.",
+    "I will not say that I like it.",
+    "I like going to the gym and doing yoga.",
+    "Because of him I was forced to wait 2 hours in the cold..."
       ];
       
 
