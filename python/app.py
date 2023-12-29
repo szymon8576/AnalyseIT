@@ -81,8 +81,8 @@ def process_texts(texts, used_model):
     return f"Model {used_model} not found", 404
 
 
-@app.route('/analyse', methods=["POST"])
-def analyse():
+@app.route('/classify-sentences', methods=["POST"])
+def classify_sentences():
     """
     Endpoint for making predictions on a list of sentences using a specified model.
 
@@ -93,12 +93,14 @@ def analyse():
     return jsonify(result)
 
 
-@app.route('/batch_analyse', methods=["POST"])
-def batch_analyse():
+@app.route('/generate-report', methods=["POST"])
+def generate_report():
     texts = request.json["texts"]
 
-    if len(texts) > 20:
-        texts = random.sample(texts, 20)
+    # The operations below are computationally demanding.
+    # If there are more than 30 texts, randomly sample them.
+    if len(texts) > 30:
+        texts = random.sample(texts, 30)
 
     result = {}
 

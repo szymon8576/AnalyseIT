@@ -229,7 +229,7 @@ function toggleModelButtons(){
 
 let data, emotions_shown = 1;
 
-async function sendTexts(texts, command="analyse"){
+async function sendTexts(texts, command="classify-sentences"){
 
     let body;
     body = JSON.stringify({ texts: texts, used_model: used_model});
@@ -249,7 +249,7 @@ async function sendTexts(texts, command="analyse"){
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        if (command == "analyse"){
+        if (command == "classify-sentences"){
         data = await response.json();
 
         data = Object.entries(data[0]);
@@ -317,7 +317,7 @@ const randomTexts = [
     "Randomness is fun",
     "Learning AI brings me so much joy!", 
     "Ugh, that chicken is rotten",
-    "It's a beautiful, mesmerising summer!",
+    "It's a beautiful summer!",
     "I'm sorry for breaking your heart...",
     "Vistula is a river in Poland",
     "This tool recognizes 28 emotions, it's stunning!",
@@ -331,7 +331,9 @@ const randomTexts = [
     "There are 50 states in the USA.",
     "I will not say that I like it.",
     "I like going to the gym and doing yoga.",
-    "Because of him I was forced to wait 2 hours in the cold..."
+    "Because of him I was forced to wait 2 hours in the cold...",
+    "Reviews on the website were fake and misleading.",
+    "I want this dress so much!"
       ];
       
 
@@ -400,7 +402,7 @@ function split_string(text){
 
 
 function exemplaryBatchPrediction(){
-    sendTexts(randomTexts, command="batch_analyse");
+    sendTexts(randomTexts, command="generate-report");
 }
 
 function handleFileChange(event) {
@@ -410,7 +412,7 @@ function handleFileChange(event) {
 
             reader.onload = function (e) {
                 const fileContent = e.target.result;     
-                if (fileContent.length > 0) sendTexts(split_string(fileContent), command="batch_analyse");
+                if (fileContent.length > 0) sendTexts(split_string(fileContent), command="generate-report");
             };
 
             reader.readAsText(selectedFile);
