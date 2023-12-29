@@ -22,7 +22,7 @@ id2label = {i: label for i, label in enumerate(labels)}
 
 # load tokenizer used with LSTM model
 lstm_tokenizer = CustomTokenizer()
-lstm_tokenizer.load(dictionary_path="./lstm_tokenizer/dictionary.json", stopwords_path="./lstm_tokenizer/stopwords.json")
+lstm_tokenizer.load(dictionary_path="./lstm_tokenizer/dictionary.json", excluded_tokens_path="./lstm_tokenizer/stopwords.json")
 
 
 def fetch_tf_serve(url, data, data_format="instances"):
@@ -51,7 +51,7 @@ def process_texts(texts, used_model):
 
     """
     if used_model == "BERT":
-        tf_serving_url = app.config['TFS_API_URL']+"/v1/models/BERTEmotions:predict"
+        tf_serving_url = app.config['TFS_BERT_URL']+"/v1/models/BERTEmotions:predict"
         tokens = bert_tokenizer(texts, padding="max_length", truncation=True, max_length=64)
         response = fetch_tf_serve(tf_serving_url, dict(tokens), data_format="inputs")
         predictions = np.array(response["outputs"])
@@ -65,7 +65,7 @@ def process_texts(texts, used_model):
         return result
 
     elif used_model == "LSTM":
-        tf_serving_url = app.config['TFS_API_URL'] + "/v1/models/LSTMSentiment:predict"
+        tf_serving_url = app.config['TFS_LSTM_URL'] + "/v1/models/LSTMSentiment:predict"
         tokenized_texts = [lstm_tokenizer.tokenize(text)[:32] for text in texts]
         padded_tokens = [np.pad(tokens, (0, 32 - len(tokens))).astype(np.int64).tolist() for tokens in tokenized_texts]
         response = fetch_tf_serve(tf_serving_url, padded_tokens, data_format="instances")
