@@ -51,7 +51,7 @@ def process_texts(texts, used_model):
 
     """
     if used_model == "BERT":
-        tf_serving_url = app.config['TFS_BERT_URL']+"/v1/models/BERTEmotions:predict"
+        tf_serving_url = app.config['TFS_BERT_URL']+"/v1/models/DistilBERTEmotions:predict"
         tokens = bert_tokenizer(texts, padding="max_length", truncation=True, max_length=64)
         response = fetch_tf_serve(tf_serving_url, dict(tokens), data_format="inputs")
         predictions = np.array(response["outputs"])
