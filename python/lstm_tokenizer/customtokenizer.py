@@ -32,34 +32,39 @@ class CustomTokenizer:
     def train(self, sentences, excluded_tokens_path='excluded_tokens.json', min_occurences=70):
 
         if self.dictionary is not None:
-            raise AssertionError("Tokenizer was already trained!")
+            raise AssertionError("Tokenizer has already been trained!")
 
-        self.dictionary["<PAD>"] = 0
-        self.dictionary["<UNK>"] = 1
+        self.dictionary = {"<PAD>": 0, "<UNK>": 1}
 
-        # prepare list of words that should be omited
+        # load list of words that should be omitted
         with open(excluded_tokens_path) as f:
             self.excluded_tokens = json.load(f)
 
         counter = defaultdict(int)
 
-        sentences_tokens = [self.prepare(text) for text in sentences]
+        sentences_words = [self.preprocess_sentence(text) for text in sentences]
 
-        for sentence in sentences_tokens:
-            for token in sentence:
-                counter[token] += 1
+        for sentence in sentences_words:
+            for word in sentence:
+                counter[word] += 1
 
         for word in [word for word, count in counter.items() if count >= min_occurences]:
             self.dictionary[word] = len(self.dictionary)
 
-    def prepare(self, text):
-        words = re.findall(r"[A-Za-z]+|[^\w\s]", text.lower())
-        words = [w for w in words if w not in self.excluded_tokens]
-        words = [self.stemmer.stem(word) for word in words]
+    def preprocess_sentence(self, sentence):
+        """
+        Preprocesses the input sentence by splitting, excluding tokens, and performing stemming.
+
+        :param sentence: The input sentence to be preprocessed.
+        :return: A list of preprocessed words.
+        """
+        words = re.findall(r"[A-Za-z]+|[^\w\s]", sentence.lower())       # split lowercased text into words
+        words = [w for w in words if w not in self.excluded_tokens]  # remove excluded tokens
+        words = [self.stemmer.stem(word) for word in words]          # perform stemming
         return words
 
     def tokenize(self, text):
-        return [self.dictionary[x] if x in self.dictionary.keys() else 1 for x in self.prepare(text)]
+        return [self.dictionary[x] if x in self.dictionary.keys() else 1 for x in self.preprocess_sentence(text)]
 
     @property
     def vocab_size(self):
