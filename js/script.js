@@ -123,12 +123,30 @@ const emotionsData = {
     },
 };
 
+
+function healthCheck(backendURL){
+    fetch(`${backendURL}/health-check`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+      return response.text();
+    })
+    .then(data => {
+      console.log('Health check response:', data);
+    })
+    .catch(error => {
+      console.error('Error during health check:', error.message);
+    });
+}
+
 let backendURL
 async function loadConfig() {
     try {
       const response = await fetch('config.json');
       const config = await response.json();
       backendURL = config.backendURL;
+      healthCheck(backendURL);
     } catch (error) {
       console.error('Error loading configuration:', error);
     }
@@ -244,6 +262,8 @@ async function sendTexts(texts, command="classify-sentences"){
             },
             body: body,
         });
+        
+        hideWheel(command == "classify-sentences" ? "upper" : "lower");
 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -292,7 +312,6 @@ async function sendTexts(texts, command="classify-sentences"){
         console.error("Error:", error);
     }
 
-    hideWheel(command == "classify-sentences" ? "upper" : "lower");
     document.getElementById("stacked-buttons-wrapper").style.display="flex";
 
  }
@@ -342,7 +361,7 @@ function hideBatchAnalysisResult(){
 }
 
 let typingTimer;
-const doneTypingInterval = 1000; 
+const doneTypingInterval = 1500; 
 
 function typedText(text, dont_wait=false) {
 
@@ -463,16 +482,5 @@ hoverElement.addEventListener('mouseout', function() {
 });
 
 
-fetch(`${backendURL}/health-check`)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`Network response was not ok: ${response.statusText}`);
-    }
-    return response.text();
-  })
-  .then(data => {
-    console.log('Health check response:', data);
-  })
-  .catch(error => {
-    console.error('Error during health check:', error.message);
-  });
+
+
