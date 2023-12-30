@@ -50,6 +50,9 @@ html, body{
     justify-content: center;
   }
 
+p{
+    white-space: nowrap;
+}
 
 #mainContainer{
     margin-top: 8%;

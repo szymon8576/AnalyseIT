@@ -124,35 +124,6 @@ const emotionsData = {
 };
 
 
-function healthCheck(backendURL){
-    fetch(`${backendURL}/health-check`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
-      }
-      return response.text();
-    })
-    .then(data => {
-      console.log('Health check response:', data);
-    })
-    .catch(error => {
-      console.error('Error during health check:', error.message);
-    });
-}
-
-let backendURL
-async function loadConfig() {
-    try {
-      const response = await fetch('config.json');
-      const config = await response.json();
-      backendURL = config.backendURL;
-      healthCheck(backendURL);
-    } catch (error) {
-      console.error('Error loading configuration:', error);
-    }
-  }
-  
-loadConfig();
 
 
 function updateEmotionBars(emotions, emotionContainerID = 'main-emotion-container') {
@@ -243,6 +214,46 @@ function toggleModelButtons(){
     document.getElementById("LSTMButton").classList.toggle("active");
     
 }
+
+// Function used to minimize backend response time by spinning it up from inactivity on frontend load.
+// (free Render.com instance types spins down with inactivity)
+function spinUpBackend(backendURL){
+
+    fetch(`${backendURL}/classify-sentences`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ texts: ["Test text!"], used_model: "LSTM"}),
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Backend spin up response was not ok: ${response.statusText}`);
+      }
+      return response.text();
+    })
+    .then(data => {
+      console.log('Backend spin up response:', data);
+    })
+    .catch(error => {
+      console.error('Error during backend spin up:', error.message);
+    });
+}
+
+let backendURL
+async function loadConfig() {
+    try {
+      const response = await fetch('config.json');
+      const config = await response.json();
+      backendURL = config.backendURL;
+      spinUpBackend(backendURL);
+    } catch (error) {
+      console.error('Error loading configuration:', error);
+    }
+  }
+  
+loadConfig();
 
 
 let data, emotions_shown = 1;
