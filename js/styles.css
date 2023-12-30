@@ -93,7 +93,7 @@ html, body{
     border: 1px solid #333;
     border-radius: 10px;
     overflow: hidden;
-    font-size: 1.5vh;
+    font-size: 10px;
   }
   
   .emotion-bar-fill {
