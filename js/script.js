@@ -235,7 +235,7 @@ async function sendTexts(texts, command="classify-sentences"){
     body = JSON.stringify({ texts: texts, used_model: used_model});
 
     try {
-
+        showWheel(command == "classify-sentences" ? "upper" : "lower");
         const response = await fetch(`${backendURL}/${command}`, {
             method: "POST",
             mode: "cors",
@@ -292,7 +292,7 @@ async function sendTexts(texts, command="classify-sentences"){
         console.error("Error:", error);
     }
 
-    
+    hideWheel(command == "classify-sentences" ? "upper" : "lower");
     document.getElementById("stacked-buttons-wrapper").style.display="flex";
 
  }
@@ -323,7 +323,7 @@ const randomTexts = [
     "This tool recognizes 28 emotions, it's stunning!",
     "Thanks for staying with me at the hospital!",
     "As the dark shadows crept closer, a chilling sense of fear began to consume me",
-    "The sense of pride swelled within him",
+    "I'm so proud of you!",
     "A sudden clap of thunder startled everyone",
     "I adore you, baby.",
     "Product did not live up to the online description. Not worth it.", 
@@ -400,6 +400,16 @@ function split_string(text){
     return result
 }
 
+document.getElementById("spinning-wheel-upper").style.display = 'none';
+document.getElementById("spinning-wheel-lower").style.display = 'none';
+
+function showWheel(which="upper"){
+    document.getElementById(`spinning-wheel-${which}`).style.display = 'block';
+}
+
+function hideWheel(which="upper"){
+    document.getElementById(`spinning-wheel-${which}`).style.display =  'none';
+}
 
 function exemplaryBatchPrediction(){
     sendTexts(randomTexts, command="generate-report");
@@ -416,6 +426,8 @@ function handleFileChange(event) {
             };
 
             reader.readAsText(selectedFile);
+
+    document.getElementById("fileInput").value = "";
 }
 
 
@@ -449,3 +461,18 @@ hoverElement.addEventListener('mouseover', function() {
 hoverElement.addEventListener('mouseout', function() {
     explanation.style.display = 'none';
 });
+
+
+fetch(`${backendURL}/health-check`)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Network response was not ok: ${response.statusText}`);
+    }
+    return response.text();
+  })
+  .then(data => {
+    console.log('Health check response:', data);
+  })
+  .catch(error => {
+    console.error('Error during health check:', error.message);
+  });
