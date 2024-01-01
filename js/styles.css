@@ -387,9 +387,9 @@ a.no-underline{
   
   .countdown {
     position: absolute;
-    top: 18.2px; 
-    left: 18.5px; 
-    font-size: 10px;
+    top: 18.5px; 
+    left: 19px; 
+    font-size: 9px;
     font-style: italic;
     color: #ffffffb4;
   }
