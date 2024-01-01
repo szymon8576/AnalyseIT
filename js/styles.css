@@ -311,7 +311,7 @@ a.no-underline{
 
   
   .lds-spinner div {
-    transform-origin: 15px 15px;
+    transform-origin: 17px 17px;
     animation: lds-spinner 1.2s linear infinite;
   }
   
@@ -387,9 +387,9 @@ a.no-underline{
   
   .countdown {
     position: absolute;
-    top: 18px; 
-    left: 18px; 
-    font-size: 7px;
+    top: 18.2px; 
+    left: 18.5px; 
+    font-size: 10px;
     font-style: italic;
     color: #ffffffb4;
   }
