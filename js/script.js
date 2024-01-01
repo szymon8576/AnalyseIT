@@ -216,7 +216,7 @@ function toggleModelButtons(){
 }
 
 // Function used to minimize backend response time by spinning it up from inactivity on frontend load.
-// (free Render.com instance types spins down with inactivity)
+// Render.com instance type used in this project spins down with inactivity)
 function spinUpBackend(backendURL){
 
     fetch(`${backendURL}/classify-sentences`, {
