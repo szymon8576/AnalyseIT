@@ -25,8 +25,9 @@
             <p>You can analyze short sentences in the first window or process an entire file in the second window to obtain its general characteristics.</p>
           </div>
         <div class="wrapper">
+            <div class="countdown" id="countdown-upper"></div>
             <div class="lds-spinner" id="spinning-wheel-upper"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-           <button id="info-button">i</button>
+            <button id="info-button">i</button>
             <div class="text-box-container">
                 <input type="text" id="text-box" placeholder="Type something..." onkeyup="typedText(this.value)">
                 <button id="random-button" onclick="insertRandomText()">Surprise me!</button>
@@ -38,6 +39,7 @@
             <div class = "emotion-container"  id="main-emotion-container"></div>
         </div>
         <div class="wrapper" id="fileInputWrapper">
+            <div class="countdown" id="countdown-lower"></div>
             <div class="lds-spinner" id="spinning-wheel-lower"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
             <div class="text-box-container lower-container">
                 <p>You can also &nbsp;</p>

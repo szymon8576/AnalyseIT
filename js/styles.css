@@ -385,3 +385,11 @@ a.no-underline{
     }
   }
   
+  .countdown {
+    position: absolute;
+    top: 18px; 
+    left: 18px; 
+    font-size: 7px;
+    font-style: italic;
+    color: #ffffff;
+  }
