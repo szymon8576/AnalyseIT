@@ -217,27 +217,26 @@ function toggleModelButtons(){
 
 // Function used to minimize backend response time by spinning it up from inactivity on frontend load.
 // Render.com instance type used in this project spins down with inactivity)
-function spinUpBackend(backendURL){
+function backendSpinUp(backendURL){
 
-    fetch(`${backendURL}/classify-sentences`, {
-        method: "POST",
+    fetch(`${backendURL}/health-check`, {
+        method: "GET",
         mode: "cors",
         headers: {
             "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ texts: ["Test text!"], used_model: "LSTM"}),
+        }
     })
     .then(response => {
       if (!response.ok) {
-        throw new Error(`Backend spin up response was not ok: ${response.statusText}`);
+        throw new Error(`Backend spin-up response was not ok: ${response.statusText}`);
       }
       return response.text();
     })
     .then(data => {
-      console.log('Backend spin up response:', data);
+      console.log('Backend spin-up response:', data);
     })
     .catch(error => {
-      console.error('Error during backend spin up:', error.message);
+      console.error('Error during backend spin-up:', error.message);
     });
 }
 
@@ -247,7 +246,7 @@ async function loadConfig() {
       const response = await fetch('config.json');
       const config = await response.json();
       backendURL = config.backendURL;
-      spinUpBackend(backendURL);
+      backendSpinUp(backendURL);
     } catch (error) {
       console.error('Error loading configuration:', error);
     }
