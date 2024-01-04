@@ -140,12 +140,6 @@ p{
 
 }
 
-@media (max-width: 767px) {
-    .wrapper {
-      width: 75%;
-  }
-}
-
 
 #random-button {
     color: #fbfbfb;
