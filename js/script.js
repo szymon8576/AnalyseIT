@@ -325,7 +325,6 @@ const randomTexts = [
     "Vistula is a river in Poland",
     "This tool recognizes 28 emotions, it's stunning!",
     "Thanks for staying with me at the hospital!",
-    "As the dark shadows crept closer, a chilling sense of fear began to consume me",
     "I'm so proud of you!",
     "A sudden clap of thunder startled everyone",
     "I adore you, baby.",
@@ -334,10 +333,23 @@ const randomTexts = [
     "There are 50 states in the USA.",
     "I will not say that I like it.",
     "I like going to the gym and doing yoga.",
-    "Because of him I was forced to wait 2 hours in the cold...",
     "Reviews on the website were fake and misleading.",
-    "I want this dress so much!"
-      ];
+    "I want this dress so much!",
+    "I was late to the airport, and I missed the flight.",
+    "This sushi is delicious!", 
+    "You hurt me, you hurt me so badly.",
+    "I had forgotten her name, and an awkward silence fell.",
+    "I am so thankful for everything you've done.",
+    "There was an uneasy feeling in my stomach during the job interview",
+    "Each day brings new possibilities!",
+    "From this moment onward, I knew that I had made a mistake.",
+    "Please forgive me, I was a fool!",
+    "Product exceeded my expectations. Will definitely shop here again!",
+    "Really great customer service!",
+    "Packaging was flimsy, and the item arrived in poor condition.",
+    "The loyalty card offers ridiculously low profits.",
+    "My heart raced as I heard a wailing in the middle of the night."
+    ];
       
 
 function hideBatchAnalysisResult(){

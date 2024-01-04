@@ -13,7 +13,7 @@ html, body{
 #text-box {
     border: 2px solid #ccc;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 13px;
     width: 50%;
     height: 100%;
     text-align: center;
@@ -30,6 +30,7 @@ html, body{
     border: 1px solid #939393;
     border-radius: 15px;
     box-shadow: 0 2px 5px rgba(249, 249, 0, 0.1);
+
     
   }
 
@@ -137,6 +138,12 @@ p{
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     background-color: rgba(0, 0, 0, 0.2);
 
+}
+
+@media (max-width: 767px) {
+    .wrapper {
+      width: 75%;
+  }
 }
 
 
