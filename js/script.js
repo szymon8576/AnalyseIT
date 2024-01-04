@@ -336,8 +336,8 @@ const randomTexts = [
     "Reviews on the website were fake and misleading.",
     "I want this dress so much!",
     "I was late to the airport, and I missed the flight.",
-    "This sushi is delicious!", 
-    "You hurt me, you hurt me so badly.",
+    "This sushi tastes delicious!", 
+    "You did hurt me. You hurt me so badly.",
     "I had forgotten her name, and an awkward silence fell.",
     "I am so thankful for everything you've done.",
     "There was an uneasy feeling in my stomach during the job interview",
@@ -348,7 +348,9 @@ const randomTexts = [
     "Really great customer service!",
     "Packaging was flimsy, and the item arrived in poor condition.",
     "The loyalty card offers ridiculously low profits.",
-    "My heart raced as I heard a wailing in the middle of the night."
+    "My heart raced as I heard a wailing in the middle of the night.",
+    "Surprise, surprise!",
+    `Unleash the power of batch analysis by clicking ,,Process" below!`
     ];
       
 
