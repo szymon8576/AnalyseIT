@@ -260,7 +260,11 @@ async function sendTexts(texts, command="classify-sentences"){
         data.sort(function(a, b) { return b[1] - a[1] });
 
         updateEmotionBars(data);
-        }
+
+        document.getElementById("stacked-buttons-wrapper").style.display="flex";
+        
+    }
+
 
         else{
             
@@ -296,7 +300,7 @@ async function sendTexts(texts, command="classify-sentences"){
         console.error("Error:", error);
     }
 
-    document.getElementById("stacked-buttons-wrapper").style.display="flex";
+   
 
  }
 
