@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, abort
 from flask_cors import CORS
 import requests
 import random
@@ -78,7 +78,7 @@ def process_texts(texts, used_model):
 
         return result
 
-    return f"Model {used_model} not found", 404
+    abort(404, f"Model {used_model} not found")
 
 
 @app.route('/classify-sentences', methods=["POST"])
