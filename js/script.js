@@ -354,7 +354,8 @@ const randomTexts = [
     "The loyalty card offers ridiculously low profits.",
     "My heart raced as I heard a wailing in the middle of the night.",
     "Surprise, surprise!",
-    `Unleash the power of batch analysis by clicking ,,Process" below!`
+    `Unleash the power of batch analysis by clicking ,,Process" below!`,
+    "I would recommend it to my friend!",
     ];
       
 
